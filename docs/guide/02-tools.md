@@ -21,7 +21,21 @@ For each tool: what it does, why it is here, what goes in, what comes out, and w
 Cloud LLM that runs in your terminal. It reads `CLAUDE.md` at the start of every session, can load the skills in `.claude/skills/`, writes code, runs the tools below, looks at the results (ffprobe, rendered stills) and retries on errors. It needs a Claude subscription or API key.
 
 ## Kokoro TTS (the voice)
-Small, fast, open text-to-speech model. Turns each scene's `narration` into a WAV. Runs on CPU or GPU, English voices by default (for example `af_heart`). Needs `espeak-ng` (installed by `setup.sh`). For cloned or very expressive voices, Chatterbox can be added on demand.
+Small, fast, open text-to-speech model. Turns each scene's `narration` into a WAV. Runs on CPU or GPU, English voices by default (for example `af_heart`). Needs `espeak-ng` (installed by `setup.sh`). For cloned or very expressive voices, use Chatterbox (below).
+
+## Chatterbox (clone your voice)
+Open-source voice cloning from a short sample. Installed in its own `.venv-clone` (Python 3.11, CUDA torch) so it cannot break the main environment. Re-create it with:
+`uv venv --python 3.11 .venv-clone` then `uv pip install --python .venv-clone/bin/python --override <file with torch==2.11.0 and torchaudio==2.11.0> --extra-index-url https://download.pytorch.org/whl/cu128 --index-strategy unsafe-best-match chatterbox-tts`.
+
+How to clone a voice:
+1. Record 10-20 s of **your own** voice (or one you have permission to use): quiet room, no music or echo, steady distance from the mic, natural pace. A phone voice memo works.
+2. Convert: `ffmpeg -i in.m4a -ac 1 -ar 24000 my-voice.wav`.
+3. Put it in `library/voice/` and ask Claude to catalogue it.
+4. Ask for the video "in my voice". Claude runs `.venv-clone/bin/python scripts/clone_tts.py <project> library/voice/my-voice.wav [exaggeration] [cfg_weight]`, which writes the same `audio/scene_N.wav` files Kokoro would.
+5. Tuning: `exaggeration` (default 0.5; ~0.7 = more expressive) and `cfg_weight` (default 0.5; ~0.3 if speech sounds rushed).
+6. English only for the Turbo model. The sample's language/accent carries into the output. All output has an inaudible Perth watermark.
+
+The first run downloads the model (about a GB or more). Stop ComfyUI first: one GPU task at a time.
 
 ## faster-whisper (the ears)
 Speech-to-text with **word-level timestamps**. Two jobs:

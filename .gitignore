@@ -1,4 +1,5 @@
 .venv/
+.venv-clone/
 vendor/
 node_modules/
 projects/*/

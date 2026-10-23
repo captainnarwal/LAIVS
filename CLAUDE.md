@@ -12,7 +12,7 @@ You are the director and editor of a local video studio. The user describes vide
 - Python: always run via `scripts/py` (sets CUDA lib path; plain `.venv/bin/python` breaks faster-whisper on GPU). Remotion project: `remotion-app/`.
 - AI image/clip generation: `./scripts/models.sh` once (big download, ask first), `./scripts/comfy.sh` to start ComfyUI at http://127.0.0.1:8188. Tier `cpu` means skip ai_image/ai_clip and use remotion_animation / text_only.
 - Only ONE GPU-heavy task at a time (ComfyUI, Demucs, Whisper on GPU). On memory errors, stop ComfyUI first.
-- Not installed by default; `uv pip install --python .venv/bin/python <pkg>` when needed: demucs, rembg, moviepy, chatterbox, Real-ESRGAN, RIFE.
+- Not installed by default; `uv pip install --python .venv/bin/python <pkg>` when needed: demucs, rembg, moviepy, Real-ESRGAN, RIFE.
 - Keep the repo in the WSL filesystem, not `/mnt/c`.
 
 ## Project layout
@@ -21,7 +21,7 @@ You are the director and editor of a local video studio. The user describes vide
 ## Workflow for a new video
 0. Read `library/brand/` (brand.md, brand.json) and apply it.
 1. Make `projects/<name>/`. Write `script.json` (scenes, narration, visuals; see docs). Show a short summary of the scenes and wait for approval if longer than 60s.
-2. TTS: generate `audio/scene_N.wav` with Kokoro. Natural pace.
+2. TTS: generate `audio/scene_N.wav` with Kokoro. Natural pace. If the user wants their cloned voice: `.venv-clone/bin/python scripts/clone_tts.py <project> library/voice/<sample>.wav` (Chatterbox lives in its own `.venv-clone`, Python 3.11; never `uv pip install chatterbox-tts` into `.venv`, it downgrades torch and breaks the GPU).
 3. Transcribe each wav with faster-whisper (word timestamps) into `timing/scene_N.json`.
 4. Check `scripts/py scripts/library.py find <words>` for logos, music, sfx, footage first and reuse them. Then generate ai_image / ai_clip assets through ComfyUI workflows in `workflows/`. Clips are short B-roll only. Upscale if needed.
 5. Build the Remotion composition: scene durations from audio length plus padding; captions timed from word timestamps; animate with `spring()`/`interpolate()` only (never CSS transitions or timer-based animation). Use the remotion skills in `.claude/skills/`.
