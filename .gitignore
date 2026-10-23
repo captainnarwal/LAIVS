@@ -1,0 +1,9 @@
+.venv/
+vendor/
+node_modules/
+projects/*/
+!projects/.gitkeep
+out/
+*.wav
+*.mp4
+__pycache__/

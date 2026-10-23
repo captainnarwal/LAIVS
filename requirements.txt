@@ -1,0 +1,7 @@
+# torch/torchvision/torchaudio are installed by setup.sh (wheel depends on GPU)
+kokoro>=0.9
+soundfile
+faster-whisper
+auto-editor
+scenedetect[opencv]
+av<16  # faster-whisper breaks on av>=16

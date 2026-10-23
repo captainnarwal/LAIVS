@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Run the studio Python with CUDA libs on the path (faster-whisper/ctranslate2 needs libcublas). Usage: scripts/py script.py
+R="$(cd "$(dirname "$0")/.." && pwd)"
+export LD_LIBRARY_PATH="$(ls -d "$R"/.venv/lib/python*/site-packages/nvidia/*/lib 2>/dev/null | tr '\n' ':')$LD_LIBRARY_PATH"
+exec "$R/.venv/bin/python" "$@"
