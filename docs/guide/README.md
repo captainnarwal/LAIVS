@@ -8,4 +8,5 @@
 | [04 Setup and hardware](04-setup.md) | you are installing, or changing machines |
 | [05 Customizing](05-customizing.md) | you want your own style, formats or extra tools |
 | [06 Troubleshooting](06-troubleshooting.md) | something broke |
+| [07 Library](07-library.md) | you want to store brand rules, logos, music or sound effects for reuse |
 | [script.json format](script-format.md) | you are reading or editing a script |

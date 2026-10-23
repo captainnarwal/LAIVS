@@ -1,0 +1,9 @@
+{
+  "name": "<brand name>",
+  "colors": {"primary": "#000000", "secondary": "#ffffff", "accent": "#ff5500", "background": "#ffffff", "text": "#111111"},
+  "fonts": {"heading": "<font name>", "body": "<font name>"},
+  "logos": {"main": "images/logo.png", "light": "images/logo-light.png"},
+  "tone": ["friendly", "direct"],
+  "default_format": {"width": 1920, "height": 1080, "fps": 30},
+  "default_music": "music/<file>"
+}

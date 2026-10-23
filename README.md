@@ -58,6 +58,8 @@ projects/<video-name>/
 ```
 `projects/` is git-ignored, so your videos never get committed.
 
+Things you reuse across videos (brand guidelines, logos, music, sound effects) go in `library/` instead. See [the library guide](docs/guide/07-library.md).
+
 ## Repo map
 
 ```
@@ -65,10 +67,11 @@ setup.sh              one-shot installer
 requirements.txt      Python packages (torch is installed separately by setup.sh)
 CLAUDE.md             the studio's operating manual that Claude reads every session
 .claude/commands/     /make-video and /edit-video
-.claude/skills/       Remotion skills (teach Claude how to build Remotion videos)
+.claude/skills/       Remotion skills + studio-library (how to use library/)
 remotion-app/         the Remotion project all videos are built in
 scripts/              py (runner), doctor.py (health check), comfy.sh, models.sh
 workflows/            ComfyUI workflow JSONs (API format)
+library/              brand guidelines + reusable images, video, music, sfx (media git-ignored)
 projects/             your videos (git-ignored)
 vendor/ComfyUI/       cloned by setup (git-ignored)
 .venv/                Python 3.12 environment (git-ignored)
@@ -86,7 +89,8 @@ Start with the guide: **[docs/guide/](docs/guide/README.md)**
 4. [Setup and hardware](docs/guide/04-setup.md): what `setup.sh` does, GPU tiers, WSL tips
 5. [Customizing](docs/guide/05-customizing.md): styles, formats, adding tools and commands
 6. [Troubleshooting](docs/guide/06-troubleshooting.md)
-7. [script.json format](docs/guide/script-format.md)
+7. [Library](docs/guide/07-library.md): brand guidelines and reusable media with metadata
+8. [script.json format](docs/guide/script-format.md)
 
 ## Licenses to know about
 - **Remotion** is free for individuals and teams of up to 3. Companies selling video services need a license: https://remotion.pro/license

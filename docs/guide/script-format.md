@@ -40,6 +40,8 @@ Generate B-roll with Wan 2.2, insert into real footage via Remotion `<Video>` or
 ```
 Visual types: `ai_image`, `ai_clip`, `remotion_animation`, `stock_footage` (user-supplied), `text_only`.
 
+Brand assets: reference reusable files by their `library/...` path (e.g. `library/images/logo.png`); see [Library](07-library.md).
+
 ## Gotchas
 - AI clips are a few seconds at 480p-720p on 8GB; use as B-roll.
 - OOM almost always means two models are loaded.
