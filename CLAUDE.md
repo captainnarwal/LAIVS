@@ -12,7 +12,7 @@ You are the director and editor of a local video studio. The user describes vide
 - Keep the repo in the WSL filesystem, not `/mnt/c`.
 
 ## Project layout
-`projects/<name>/{script.json,audio/,timing/,assets/,out/final.mp4}`, ComfyUI API workflows in `workflows/`, helper scripts in `scripts/`. `docs/video-studio-pipeline.md` has the full design and script.json format.
+`projects/<name>/{script.json,audio/,timing/,assets/,out/final.mp4}`, ComfyUI API workflows in `workflows/`, helper scripts in `scripts/`. `docs/guide/` has the full guide; `docs/guide/script-format.md` has the script.json format.
 
 ## Workflow for a new video
 1. Make `projects/<name>/`. Write `script.json` (scenes, narration, visuals; see docs). Show a short summary of the scenes and wait for approval if longer than 60s.

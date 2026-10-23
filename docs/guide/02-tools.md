@@ -1,0 +1,63 @@
+# 02 Tools and how they connect
+
+For each tool: what it does, why it is here, what goes in, what comes out, and where it runs.
+
+## Quick relationship table
+
+| Tool | Reads | Writes | Used by |
+|---|---|---|---|
+| Claude Code | your prompt, CLAUDE.md, skills | `script.json`, Remotion code, scripts | everything |
+| Kokoro | narration text | `audio/scene_N.wav` | new video |
+| faster-whisper | any audio/video | `timing/scene_N.json`, transcripts | new video, editing |
+| ComfyUI | a workflow JSON + prompt | `assets/*.png / *.mp4` | new video (ai_image, ai_clip) |
+| Remotion | script, audio, timings, assets | `out/final.mp4` | new video, editing (captions/titles) |
+| FFmpeg | any media | any media | all, plus final polish |
+| auto-editor | video | video with silences cut | editing |
+| PySceneDetect | video | list of scene cut points | editing |
+| Demucs *(on demand)* | audio | separate vocals / music | editing |
+| rembg, MoviePy, Real-ESRGAN, RIFE, Chatterbox *(on demand)* | | | as needed |
+
+## Claude Code (the director)
+Cloud LLM that runs in your terminal. It reads `CLAUDE.md` at the start of every session, can load the skills in `.claude/skills/`, writes code, runs the tools below, looks at the results (ffprobe, rendered stills) and retries on errors. It needs a Claude subscription or API key.
+
+## Kokoro TTS (the voice)
+Small, fast, open text-to-speech model. Turns each scene's `narration` into a WAV. Runs on CPU or GPU, English voices by default (for example `af_heart`). Needs `espeak-ng` (installed by `setup.sh`). For cloned or very expressive voices, Chatterbox can be added on demand.
+
+## faster-whisper (the ears)
+Speech-to-text with **word-level timestamps**. Two jobs:
+- *Generating:* run on Kokoro's audio so captions and animations line up with each spoken word.
+- *Editing:* run on your footage so Claude can read a transcript and decide cuts ("remove the 'um' at 00:42.3").
+
+Runs on GPU (fast) or CPU (slower). On GPU it needs CUDA libraries from the venv, which is why Python is always launched through `scripts/py`.
+
+## ComfyUI (the image and video generator)
+A node-based engine for running image/video models, started as a local server at `http://127.0.0.1:8188`. Claude sends it **API-format workflow JSONs** (kept in `workflows/`) over HTTP and collects the outputs.
+- Images: a quantized Flux or SDXL model.
+- Clips: Wan 2.2 TI2V-5B (text/image to video), a few seconds each.
+- Optional: models are downloaded by `scripts/models.sh`. Without them (or without a GPU) Claude uses `remotion_animation` / `text_only` visuals instead.
+Heaviest component; never run it alongside another GPU job.
+
+## Remotion (the compositor)
+Lets you build video as **React code**: each frame is a React component, animated with `spring()` and `interpolate()`. Claude writes the composition from the script, timings and assets, previews it and renders to MP4 with headless Chrome. Handles titles, captions, charts, shapes, transitions, layered video, audio tracks. Lives in `remotion-app/`. The skills in `.claude/skills/` teach Claude Remotion's rules (for example: never use CSS transitions, they will not render).
+
+## FFmpeg (the Swiss-army knife)
+Cuts, trims, joins, converts, resizes, mixes audio, normalizes loudness (target about -16 LUFS), and does the final encode. Can use the GPU encoder (NVENC) if present. Claude also uses `ffprobe` to verify duration, resolution and that audio exists.
+
+## auto-editor and PySceneDetect (editing helpers)
+- **auto-editor** removes silent/boring stretches from footage automatically.
+- **PySceneDetect** finds where shots change, useful for chaptering or cutting by scene.
+
+## On-demand tools
+Not installed by default to keep setup fast; Claude installs them into the venv when a request needs them (`uv pip install --python .venv/bin/python <pkg>`).
+- **Demucs**: split vocals from music, clean noisy audio.
+- **rembg**: remove image/video backgrounds.
+- **MoviePy**: scripted edits that are awkward in FFmpeg.
+- **Real-ESRGAN / RIFE**: upscale and smooth AI clips.
+- **Chatterbox**: expressive or cloned voice (GPU, ~6 GB).
+
+## The glue
+- `scripts/py`: runs the venv's Python with CUDA libraries on the path.
+- `scripts/doctor.py`: checks all of the above are installed and working.
+- `scripts/comfy.sh`, `scripts/models.sh`: start ComfyUI, download models.
+- `.studio.env`: GPU info detected by `setup.sh` (VRAM, tier, ComfyUI flags) so scripts and Claude adapt to any machine.
+- `CLAUDE.md` + `.claude/commands/`: the rules and the two entry points that tie it all together.

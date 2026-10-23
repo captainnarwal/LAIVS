@@ -1,4 +1,4 @@
-# Pipeline reference
+# script.json format and reference
 
 ## Stack
 | Job | Tool |
