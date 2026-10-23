@@ -1,0 +1,11 @@
+{
+ "description": "WheelStop Email logo: email-logo-2x.png",
+ "tags": [
+  "wheelstop",
+  "email"
+ ],
+ "use_when": "Email logo",
+ "license": "own",
+ "source": "WheelStop brand identity delivery v1.0",
+ "notes": "light variants are for light backgrounds; dark/default for #141414"
+}

@@ -1,0 +1,11 @@
+{
+ "description": "WheelStop App icon / favicon: apple-touch-icon.png",
+ "tags": [
+  "wheelstop",
+  "icon"
+ ],
+ "use_when": "Small marks, end cards",
+ "license": "own",
+ "source": "WheelStop brand identity delivery v1.0",
+ "notes": "light variants are for light backgrounds; dark/default for #141414"
+}

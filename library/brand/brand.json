@@ -1,9 +1,9 @@
 {
-  "name": "<brand name>",
-  "colors": {"primary": "#000000", "secondary": "#ffffff", "accent": "#ff5500", "background": "#ffffff", "text": "#111111"},
-  "fonts": {"heading": "<font name>", "body": "<font name>"},
-  "logos": {"main": "images/logo.png", "light": "images/logo-light.png"},
-  "tone": ["friendly", "direct"],
+  "name": "WheelStop",
+  "colors": {"primary": "#FF7A00", "secondary": "#F7F5F0", "accent": "#FF7A00", "accent_readable": "#FFB366", "background": "#141414", "background_card": "#1C1C1C", "background_light": "#F7F5F0", "text": "#F7F5F0"},
+  "fonts": {"heading": "Oswald", "body": "Inter"},
+  "logos": {"main": "images/wheelstop-logo.svg", "light": "images/wheelstop-logo-light.svg", "white": "images/wheelstop-logo-white.svg", "mark": "images/wheelstop-mark.svg"},
+  "tone": ["direct", "friendly"],
   "default_format": {"width": 1920, "height": 1080, "fps": 30},
-  "default_music": "music/<file>"
+  "default_music": null
 }

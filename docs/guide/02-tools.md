@@ -14,6 +14,7 @@ For each tool: what it does, why it is here, what goes in, what comes out, and w
 | FFmpeg | any media | any media | all, plus final polish |
 | auto-editor | video | video with silences cut | editing |
 | PySceneDetect | video | list of scene cut points | editing |
+| anatomy (skill) | a concept prompt | standalone HTML / SVG / React figure | new video |
 | Demucs *(on demand)* | audio | separate vocals / music | editing |
 | rembg, MoviePy, Real-ESRGAN, RIFE, Chatterbox *(on demand)* | | | as needed |
 
@@ -53,6 +54,9 @@ Heaviest component; never run it alongside another GPU job.
 
 ## Remotion (the compositor)
 Lets you build video as **React code**: each frame is a React component, animated with `spring()` and `interpolate()`. Claude writes the composition from the script, timings and assets, previews it and renders to MP4 with headless Chrome. Handles titles, captions, charts, shapes, transitions, layered video, audio tracks. Lives in `remotion-app/`. The skills in `.claude/skills/` teach Claude Remotion's rules (for example: never use CSS transitions, they will not render).
+
+## anatomy (explainer illustrations)
+A Claude skill ([wheresryan22/anatomy](https://github.com/wheresryan22/anatomy), MIT) in `.claude/skills/anatomy/`. Builds an interactive isometric SVG/HTML figure of a machine or system (for example `/anatomy how a token bucket rate limiter works`). Needs Node 20.10+ and Chrome/Chromium (no npm install). Generation is slow by design; it suits machines and instruments, not people, maps or charts. Use the output as a Remotion scene asset or screen-record it.
 
 ## FFmpeg (the Swiss-army knife)
 Cuts, trims, joins, converts, resizes, mixes audio, normalizes loudness (target about -16 LUFS), and does the final encode. Can use the GPU encoder (NVENC) if present. Claude also uses `ffprobe` to verify duration, resolution and that audio exists.

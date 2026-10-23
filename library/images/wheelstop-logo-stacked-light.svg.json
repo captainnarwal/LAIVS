@@ -1,0 +1,12 @@
+{
+ "description": "WheelStop Vector logo: wheelstop-logo-stacked-light.svg",
+ "tags": [
+  "wheelstop",
+  "logo",
+  "light-background"
+ ],
+ "use_when": "Use in videos at any size; pick dark/light variant to match background",
+ "license": "own",
+ "source": "WheelStop brand identity delivery v1.0",
+ "notes": "light variants are for light backgrounds; dark/default for #141414"
+}

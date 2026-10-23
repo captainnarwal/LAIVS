@@ -1,0 +1,11 @@
+{
+ "description": "WheelStop Social share image: og-image-square.png",
+ "tags": [
+  "wheelstop",
+  "social"
+ ],
+ "use_when": "Thumbnails and social formats",
+ "license": "own",
+ "source": "WheelStop brand identity delivery v1.0",
+ "notes": "light variants are for light backgrounds; dark/default for #141414"
+}

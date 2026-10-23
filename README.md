@@ -67,7 +67,7 @@ setup.sh              one-shot installer
 requirements.txt      Python packages (torch is installed separately by setup.sh)
 CLAUDE.md             the studio's operating manual that Claude reads every session
 .claude/commands/     /make-video and /edit-video
-.claude/skills/       Remotion skills + studio-library (how to use library/)
+.claude/skills/       Remotion skills, anatomy (explainer illustrations) + studio-library (how to use library/)
 remotion-app/         the Remotion project all videos are built in
 scripts/              py (runner), doctor.py (health check), comfy.sh, models.sh
 workflows/            ComfyUI workflow JSONs (API format)
