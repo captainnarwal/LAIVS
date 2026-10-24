@@ -8,9 +8,4 @@ out/
 *.wav
 *.mp4
 __pycache__/
-library/**
-!library/**/
-!library/**/*.md
-!library/**/*.json
-!library/**/.gitkeep
-library/catalog.json
+projects/.current

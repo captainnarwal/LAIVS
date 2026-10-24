@@ -1,8 +1,11 @@
 # 03 Workflows
 
+## Projects first
+Every video lives in its own project, `projects/<name>/`, with its own `library/` for your logos, music and brand rules. Create one with `./new-project.sh <name>` (or `./new-project.sh --list` to see them). Claude always works inside one project: if you don't name one, it asks which, or offers to create it for you.
+
 ## A. `/make-video <description>`: generate a new video
 
-1. **Plan.** Claude creates `projects/<name>/` and writes `script.json`: scenes, narration, and a visual for each. For videos over 60 seconds it shows you a scene summary and waits for approval.
+1. **Plan.** Claude picks the project (asking if needed) and writes `script.json`: scenes, narration, and a visual for each. For videos over 60 seconds it shows you a scene summary and waits for approval.
 2. **Voice.** Kokoro turns each scene's narration into `audio/scene_N.wav`.
 3. **Timing.** faster-whisper reads each WAV and writes `timing/scene_N.json` with start/end per word.
 4. **Assets.** For scenes with `ai_image` or `ai_clip`, Claude starts ComfyUI, submits a workflow from `workflows/`, and saves results to `assets/`. (Skipped on machines without a GPU or models.)

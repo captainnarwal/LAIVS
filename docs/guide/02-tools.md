@@ -31,8 +31,8 @@ Open-source voice cloning from a short sample. Installed in its own `.venv-clone
 How to clone a voice:
 1. Record 10-20 s of **your own** voice (or one you have permission to use): quiet room, no music or echo, steady distance from the mic, natural pace. A phone voice memo works.
 2. Convert: `ffmpeg -i in.m4a -ac 1 -ar 24000 my-voice.wav`.
-3. Put it in `library/voice/` and ask Claude to catalogue it.
-4. Ask for the video "in my voice". Claude runs `.venv-clone/bin/python scripts/clone_tts.py <project> library/voice/my-voice.wav [exaggeration] [cfg_weight]`, which writes the same `audio/scene_N.wav` files Kokoro would.
+3. Put it in `projects/<name>/library/voice/` and ask Claude to catalogue it.
+4. Ask for the video "in my voice". Claude runs `.venv-clone/bin/python scripts/clone_tts.py <project> projects/<project>/library/voice/my-voice.wav [exaggeration] [cfg_weight]`, which writes the same `audio/scene_N.wav` files Kokoro would.
 5. Tuning: `exaggeration` (default 0.5; ~0.7 = more expressive) and `cfg_weight` (default 0.5; ~0.3 if speech sounds rushed).
 6. English only for the Turbo model. The sample's language/accent carries into the output. All output has an inaudible Perth watermark.
 

@@ -37,6 +37,7 @@ Claude is the only cloud part (it needs a Claude subscription or API key). Every
 git clone <this repo> ~/LAIVS     # keep it in the Linux filesystem, NOT /mnt/c (much slower)
 cd ~/LAIVS
 ./setup.sh                        # 10-20 min the first time; asks for sudo once
+./new-project.sh my-first-video   # makes projects/my-first-video/ with its own library/
 claude                            # then try /make-video ...
 ```
 
@@ -55,23 +56,25 @@ projects/<video-name>/
   timing/         word timestamps per scene
   assets/         generated images/clips, your logos, music
   out/final.mp4   the result
+  library/        this project's brand rules, logos, music, sfx
 ```
 `projects/` is git-ignored, so your videos never get committed.
 
-Things you reuse across videos (brand guidelines, logos, music, sound effects) go in `library/` instead. See [the library guide](docs/guide/07-library.md).
+Each project has its own `projects/<video-name>/library/` for brand guidelines, logos, music and sound effects. Create a project with `./new-project.sh <name>`. See [the library guide](docs/guide/07-library.md).
 
 ## Repo map
 
 ```
 setup.sh              one-shot installer
+new-project.sh        create a video project (projects/<name>/ + its own library/)
 requirements.txt      Python packages (torch is installed separately by setup.sh)
 CLAUDE.md             the studio's operating manual that Claude reads every session
 .claude/commands/     /make-video and /edit-video
-.claude/skills/       Remotion skills, anatomy (explainer illustrations) + studio-library (how to use library/)
+.claude/skills/       Remotion skills, anatomy (explainer illustrations) + studio-library (how to use the project library)
 remotion-app/         the Remotion project all videos are built in
 scripts/              py (runner), doctor.py (health check), comfy.sh, models.sh
 workflows/            ComfyUI workflow JSONs (API format)
-library/              brand guidelines + reusable images, video, music, sfx (media git-ignored)
+new-project.sh        creates projects/<name>/ with its own library/ (brand + images, video, music, sfx)
 projects/             your videos (git-ignored)
 vendor/ComfyUI/       cloned by setup (git-ignored)
 .venv/                Python 3.12 environment (git-ignored)
